@@ -24,7 +24,7 @@ func (c *ccnuService) makeAccountPreflightRequest() (*accountRequestParams, erro
 	params := &accountRequestParams{}
 
 	// 初始化 http request
-	request, err := http.NewRequest("GET", "https://account.ccnu.edu.cn/cas/login", nil)
+	request, err := http.NewRequest("GET", "https://account.ccnu.edu.cn/cas/login/cas/login", nil)
 	if err != nil {
 		return params, err
 	}

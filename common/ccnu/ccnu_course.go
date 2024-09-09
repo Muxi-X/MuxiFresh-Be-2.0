@@ -124,7 +124,7 @@ func (c *ccnuService) xkLoginClient(ctx context.Context, studentId string, passw
 	if err != nil {
 		return nil, err
 	}
-	request, err := http.NewRequest("GET", "https://account.ccnu.edu.cn/cas/login?service=http%3A%2F%2Fxk.ccnu.edu.cn%2Fsso%2Fpziotlogin", nil)
+	request, err := http.NewRequest("GET", "https://account.ccnu.edu.cn/cas/login/cas/login?service=http%3A%2F%2Fxk.ccnu.edu.cn%2Fsso%2Fpziotlogin", nil)
 	if err != nil {
 		return nil, err
 	}

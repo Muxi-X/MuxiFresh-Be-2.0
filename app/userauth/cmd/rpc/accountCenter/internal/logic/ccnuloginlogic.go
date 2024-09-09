@@ -6,6 +6,7 @@ import (
 	"MuXiFresh-Be-2.0/app/userauth/model"
 	"MuXiFresh-Be-2.0/common/xerr"
 	"context"
+	"fmt"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -39,9 +40,12 @@ func (l *CcnuLoginLogic) CcnuLogin(in *pb.CcnuLoginReq) (*pb.CcnuLoginResp, erro
 	//	return nil, xerr.ErrStudentIdOrPasswordIsWrong.Status()
 	//}
 	ok, err := l.svcCtx.CCNUSvc.Login(l.ctx, in.GetStudentID(), in.GetPassword())
+	fmt.Println("DEBUG: -------------------------")
 	if err != nil || !ok {
-		return nil, xerr.ErrStudentIdOrPasswordIsWrong.Status()
+		fmt.Println(err.Error(), ok)
+		return nil, xerr.NewErrMsg(err.Error())
 	}
+	fmt.Println("DEBUG: -------------------------")
 	//返回userinfoID
 	return &pb.CcnuLoginResp{
 		UserinfoID: userInfo.ID.String()[10:34],
