@@ -4,7 +4,6 @@ import (
 	"MuXiFresh-Be-2.0/app/userauth/cmd/rpc/accountCenter/internal/svc"
 	"MuXiFresh-Be-2.0/app/userauth/cmd/rpc/accountCenter/pb"
 	"MuXiFresh-Be-2.0/app/userauth/model"
-	"MuXiFresh-Be-2.0/common/tool"
 	"MuXiFresh-Be-2.0/common/xerr"
 	"context"
 
@@ -36,7 +35,11 @@ func (l *CcnuLoginLogic) CcnuLogin(in *pb.CcnuLoginReq) (*pb.CcnuLoginResp, erro
 		return nil, xerr.NewErrCode(xerr.DB_ERROR).Status()
 	}
 	//一站式登录
-	if !tool.CCNULogin(in.StudentID, in.Password) {
+	//if !tool.CCNULogin(in.StudentID, in.Password) {
+	//	return nil, xerr.ErrStudentIdOrPasswordIsWrong.Status()
+	//}
+	ok, err := l.svcCtx.CCNUSvc.Login(l.ctx, in.GetStudentID(), in.GetPassword())
+	if err != nil || !ok {
 		return nil, xerr.ErrStudentIdOrPasswordIsWrong.Status()
 	}
 	//返回userinfoID
